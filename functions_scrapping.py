@@ -59,6 +59,9 @@ def ZLME_scrap(start_date=None, end_date=None):
                 continue
             
             data_list.append((date_data_str, formatted_data))
+            if start_date and end_date:
+            # Inverser la liste pour afficher du plus ancien au plus récent
+                data_list.reverse()
         
         return data_list
     except requests.RequestException as e:
@@ -129,6 +132,10 @@ def EURX_scrap(start_date = None, end_date = None):
                 continue
             
             data_list.append((date_data_str, formatted_data))
+
+            if start_date and end_date:
+            # Inverser la liste pour afficher du plus ancien au plus récent
+                data_list.reverse()
         
         return data_list
     except requests.RequestException as e:

@@ -224,23 +224,35 @@ class MyApp(QtWidgets.QWidget):
             # Obtenir la feuille de calcul 'ZLME'
             sheet = book['ZLME']
 
-            # Trouver la dernière ligne et ajouter les nouvelles données
-            new_row = ['ZLME', date, value, 'USD', 'EUR']
-            
-            # Trouver la dernière ligne disponible et ajouter la nouvelle ligne
-            sheet.append(new_row)
+            # Vérifiez si result_ZLME est une liste de tuples
+            if isinstance(result_ZLME, list) and all(isinstance(i, tuple) for i in result_ZLME):
+                for date, value in result_ZLME:
+                    # Trouver la dernière ligne et ajouter les nouvelles données
+                    new_row = ['ZLME', date, value, 'USD', 'EUR']
+                    # Trouver la dernière ligne disponible et ajouter la nouvelle ligne
+                    sheet.append(new_row)
+            else:
+                self.log(f"Erreur lors du scrapping ZLME : {result_ZLME}")
+                return
         except Exception as e:
             self.log(f'Erreur lors l\'écriture dans la feuille ZLME : {e}')
 
-        try:
+        try:    
             # Obtenir la feuille de calcul 'EURX'
-            sheet_eurx = book['EURX']
+            sheet = book['EURX']
 
-            # Ajouter les données dans la feuille 'EURX'
-            new_row_eurx = ['EURX', date_EURX, data_EURX, 'USD', 'EUR']
-            sheet_eurx.append(new_row_eurx)
+            # Vérifiez si result_EURX est une liste de tuples
+            if isinstance(result_EURX, list) and all(isinstance(i, tuple) for i in result_EURX):
+                for date, value in result_EURX:
+                    # Trouver la dernière ligne et ajouter les nouvelles données
+                    new_row = ['EURX', date, value, 'USD', 'EUR']
+                    # Trouver la dernière ligne disponible et ajouter la nouvelle ligne
+                    sheet.append(new_row)
+            else:
+                self.log(f"Erreur lors du scrapping ZLME : {result_EURX}")
+                return
         except Exception as e:
-            self.log(f'Erreur de l\'écriture dans la feuille EURX : {e}')
+            self.log(f'Erreur lors l\'écriture dans la feuille ZLME : {e}')
 
         try:
             # Sauvegarder le fichier
