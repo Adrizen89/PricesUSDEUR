@@ -2,6 +2,7 @@ import sys
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QApplication, QFileDialog, QMessageBox, QInputDialog, QProgressBar
+from PyQt5.QtCore import QTimer
 import configparser
 import os
 import pandas as pd
