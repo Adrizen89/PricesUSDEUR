@@ -124,7 +124,15 @@ class MyApp(QtWidgets.QWidget):
         # Paramètres de la fenêtre
         self.setWindowTitle('Prices USD/EUR')
         self.show()
-        
+
+        self.update_run_button_status(day_of_week)
+
+    def update_run_button_status(self, day):
+        if day in ['samedi', 'dimanche']:
+            self.run_button.setEnabled(False)
+        else:
+            self.run_button.setEnabled(True)
+
     def modify_path(self):
         # Fonction pour modifier le chemin d'accès
         file_dialog = QFileDialog()
