@@ -88,13 +88,10 @@ class MyApp(QtWidgets.QWidget):
         layout.addWidget(QtWidgets.QLabel("Date de fin :"))
         layout.addWidget(self.end_date_edit)
 
-        # Créez l'objet QCheckBox avant de l'ajouter au layout
-        self.use_date_range_checkbox = QtWidgets.QCheckBox("Utiliser la plage de dates")
-        layout.addWidget(self.use_date_range_checkbox)
-
         
         # Logger
         self.logger = QtWidgets.QTextEdit()
+        self.logger.setReadOnly(True)
         layout.addWidget(self.logger)
         
         # Bouton Lancer
@@ -111,6 +108,9 @@ class MyApp(QtWidgets.QWidget):
         # Création de la section Paramètres
         self.settings_group = QtWidgets.QGroupBox("Paramètres")
         settings_layout = QtWidgets.QVBoxLayout()
+        # Créez l'objet QCheckBox avant de l'ajouter au layout
+        self.use_date = QtWidgets.QCheckBox("Utiliser la date du jour")
+        settings_layout.addWidget(self.use_date)
         # Ajout de différents widgets pour les paramètres
         self.param1_checkbox = QtWidgets.QCheckBox("Lancer le script automatiquement au démarrage de l'application.")
         self.param1_checkbox.stateChanged.connect(self.saveSettings)
@@ -170,11 +170,11 @@ class MyApp(QtWidgets.QWidget):
         # Fonction pour lancer le script
         self.log('Script lancé.')
         # Vérifiez l'état de la checkbox pour déterminer les dates à utiliser
-        if self.use_date_range_checkbox.isChecked():
+        if self.use_date.isChecked():
+            start_date = end_date = datetime.date.today()
+        else:
             start_date = self.start_date_edit.date().toPyDate()
             end_date = self.end_date_edit.date().toPyDate()
-        else:
-            start_date = end_date = datetime.date.today()
         
         # #  # # # # ZLME # # # # # # 
 
